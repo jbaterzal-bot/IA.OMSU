@@ -1,2 +1,2 @@
-# IA.OMSU
+# index.html
 Accreditation Website
