@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PDF Overview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="Style/overview.css">
+</head>
+<body>
+  <div class="overview-shell">
+    <nav>
+      <div class="brand">
+        <img src="elements/logo.jpg" class="img" alt="logo">
+        <span class="brand-text">Occidental Mindoro State University</span>
+      </div>
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <i class="fa fa-bars"></i>
+      </button>
+      <ul id="nav-menu" class="nav-menu">
+        <li><a href="WelcomePage.html">HOME</a></li>
+        <li><a href="#">Certificate of the Veracity</a></li>
+        <li><a href="#">SUC Profile</a></li>
+        <li class="has-submenu">
+          <a href="#" class="submenu-toggle" aria-expanded="false">Areas</a>
+          <ul class="submenu">
+            <li><a href="area-i.html">Area I</a></li>
+            <li><a href="area-ii.html">Area II</a></li>
+            <li><a href="area-iii.html">Area III</a></li>
+            <li><a href="area-iv.html">Area IV</a></li>
+            <li><a href="area-v.html">Area V</a></li>
+            <li><a href="area-vi.html">Area VI</a></li>
+            <li><a href="area-vii.html">Area VII</a></li>
+            <li><a href="area-viii.html">Area VIII</a></li>
+            <li><a href="area-ix.html">Area IX</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+
+    <main class="overview-main">
+      <section class="overview-hero">
+        <div class="overview-copy">
+          <p class="eyebrow">Document Summary</p>
+          <h1>Overview of the Accreditation PDF</h1>
+          <p>This page gives a quick view of the PDF contents, highlights the main sections, and provides an easy way to open the document.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="resources/accreditation-overview.pdf" target="_blank" rel="noopener noreferrer">
+              <i class="fa-solid fa-file-pdf"></i> Open PDF
+            </a>
+            <a class="btn btn-secondary" href="WelcomePage.html">
+              <i class="fa-solid fa-arrow-left"></i> Back Home
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="overview-grid">
+        <article class="info-card">
+          <h2>Document Purpose</h2>
+          <p>This PDF contains the institutional accreditation materials for review and reference. It is organized by areas, parameters, and supporting evidence.</p>
+        </article>
+
+        <article class="info-card">
+          <h2>Key Sections</h2>
+          <ul>
+            <li>Welcome and institutional overview</li>
+            <li>Areas of accreditation</li>
+            <li>Parameters and evidence folders</li>
+            <li>Supporting documents and compliance status</li>
+          </ul>
+        </article>
+
+        <article class="info-card">
+          <h2>Quick Notes</h2>
+          <p>Use this page as a guide before opening the full PDF. The content is arranged for faster navigation and review.</p>
+        </article>
+      </section>
+
+      <section class="library-section">
+        <div class="library-shell">
+          <div class="library-header">
+            <div>
+              <p class="eyebrow">Document library</p>
+              <h2>Browse every folder and file</h2>
+            </div>
+            <p class="library-copy">Select a folder, then open a document to preview it instantly in the viewer.</p>
+          </div>
+
+          <div class="library-grid">
+            <aside class="folder-panel">
+              <h3>Folders</h3>
+              <div id="folder-list" class="folder-list"></div>
+            </aside>
+
+            <div class="document-panel">
+              <div class="document-panel-head">
+                <div>
+                  <h3 id="document-panel-title">Folder A</h3>
+                  <p id="document-panel-copy">Supporting evidence and references for this folder.</p>
+                </div>
+                <span id="document-count" class="document-count">2 files</span>
+              </div>
+              <div id="document-list" class="document-list"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="viewer-section">
+        <div class="viewer-card">
+          <div class="viewer-head">
+            <div>
+              <p class="eyebrow">Live document preview</p>
+              <h2 id="viewer-title">Loading document...</h2>
+              <p id="viewer-subtitle" class="viewer-subtitle">The selected folder will open here.</p>
+            </div>
+            <a id="viewer-open" class="btn btn-primary" href="resources/accreditation-overview.pdf" target="_blank" rel="noopener noreferrer">
+              <i class="fa-solid fa-arrow-up-right-from-square"></i> Open file
+            </a>
+          </div>
+          <div id="viewer-body" class="viewer-body">
+            <div class="viewer-placeholder">
+              <i class="fa-solid fa-file-pdf"></i>
+              <p>Select a folder or document to preview the file here.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const toggle = document.querySelector('.nav-toggle');
+      const menu = document.getElementById('nav-menu');
+      const submenuToggle = document.querySelector('.submenu-toggle');
+      const viewerTitle = document.getElementById('viewer-title');
+      const viewerSubtitle = document.getElementById('viewer-subtitle');
+      const viewerOpen = document.getElementById('viewer-open');
+      const viewerBody = document.getElementById('viewer-body');
+
+      if (!toggle || !menu) return;
+
+      toggle.addEventListener('click', function () {
+        const expanded = this.getAttribute('aria-expanded') === 'true';
+        this.setAttribute('aria-expanded', String(!expanded));
+        menu.classList.toggle('open');
+      });
+
+      if (submenuToggle) {
+        submenuToggle.addEventListener('click', function (event) {
+          event.preventDefault();
+          const parent = this.closest('.has-submenu');
+          const expanded = this.getAttribute('aria-expanded') === 'true';
+          this.setAttribute('aria-expanded', String(!expanded));
+          parent.classList.toggle('open');
+        });
+      }
+
+      const libraryData = {
+        'Folder A': {
+          description: 'Core governance documents and leadership structure references.',
+          accent: 'blue',
+          docs: [
+            { title: 'Organizational Chart.pdf', subtitle: 'Office of the President · May 22, 2024', file: 'resources/accreditation-overview.pdf' },
+            { title: 'Governance Memo.docx', subtitle: 'Internal Affairs · May 18, 2024', file: 'resources/accreditation-overview.pdf' }
+          ]
+        },
+        'Folder B': {
+          description: 'Board resolutions, policy guidance, and institutional directives.',
+          accent: 'green',
+          docs: [
+            { title: 'Board Resolution.pdf', subtitle: 'Board Secretariat · June 02, 2024', file: 'resources/accreditation-overview.pdf' },
+            { title: 'Policy Brief.docx', subtitle: 'Policy Office · June 10, 2024', file: 'resources/accreditation-overview.pdf' }
+          ]
+        },
+        'Folder C': {
+          description: 'Compliance evidence, quality assurance notes, and audit records.',
+          accent: 'gold',
+          docs: [
+            { title: 'Compliance Checklist.pdf', subtitle: 'Quality Assurance · June 14, 2024', file: 'resources/accreditation-overview.pdf' },
+            { title: 'Audit Notes.docx', subtitle: 'Internal Audit · June 20, 2024', file: 'resources/accreditation-overview.pdf' }
+          ]
+        },
+        'Folder D': {
+          description: 'Stakeholder feedback, survey outputs, and performance summaries.',
+          accent: 'purple',
+          docs: [
+            { title: 'Stakeholder Survey.pdf', subtitle: 'Planning Office · June 28, 2024', file: 'resources/cov/certificate-1.pdf' },
+            { title: 'Feedback Summary.docx', subtitle: 'Student Affairs · July 03, 2024', file: 'resources/cov/certificate-1.pdf' }
+          ]
+        }
+      };
+
+      const folderList = document.getElementById('folder-list');
+      const documentList = document.getElementById('document-list');
+      const documentPanelTitle = document.getElementById('document-panel-title');
+      const documentPanelCopy = document.getElementById('document-panel-copy');
+      const documentCount = document.getElementById('document-count');
+      const params = new URLSearchParams(window.location.search);
+      let activeFolder = params.get('folder') && libraryData[params.get('folder')] ? params.get('folder') : 'Folder A';
+      let activeDocument = null;
+
+      function updateViewer(doc, folderName) {
+        viewerTitle.textContent = doc.title;
+        viewerSubtitle.textContent = folderName + ' • ' + doc.subtitle;
+        viewerOpen.href = doc.file;
+
+        if (doc.file.toLowerCase().endsWith('.pdf')) {
+          viewerBody.innerHTML = '<iframe class="viewer-frame" src="' + doc.file + '" title="' + doc.title + '"></iframe>';
+        } else {
+          viewerBody.innerHTML = '<div class="viewer-placeholder"><i class="fa-solid fa-file-lines"></i><p>Preview is not available for this file type. Use the button above to open it in a new tab.</p></div>';
+        }
+
+        document.querySelectorAll('.document-card').forEach(function(card){
+          card.classList.toggle('active', card.dataset.file === doc.file && card.dataset.folder === folderName);
+        });
+      }
+
+      function renderLibrary(folderName) {
+        const folder = libraryData[folderName] || libraryData['Folder A'];
+        activeFolder = folderName;
+        documentPanelTitle.textContent = folderName;
+        documentPanelCopy.textContent = folder.description;
+        documentCount.textContent = folder.docs.length + (folder.docs.length === 1 ? ' file' : ' files');
+
+        folderList.innerHTML = Object.keys(libraryData).map(function(name){
+          const isActive = name === folderName;
+          return '<button type="button" class="folder-button ' + (isActive ? 'active' : '') + '" data-folder="' + name + '"><span class="folder-badge"><i class="fa-solid fa-folder"></i></span><span>' + name + '</span></button>';
+        }).join('');
+
+        documentList.innerHTML = folder.docs.map(function(doc){
+          const isActive = activeDocument && activeDocument.title === doc.title && activeDocument.file === doc.file;
+          return '<button type="button" class="document-card ' + (isActive ? 'active' : '') + '" data-folder="' + folderName + '" data-file="' + doc.file + '" data-title="' + doc.title + '" data-subtitle="' + doc.subtitle + '"><div class="doc-icon"><i class="fa-solid fa-file-pdf"></i></div><div class="doc-copy"><strong>' + doc.title + '</strong><span>' + doc.subtitle + '</span></div></button>';
+        }).join('');
+
+        const initialDoc = folder.docs[0];
+        activeDocument = activeDocument && folder.docs.some(function(doc){ return doc.title === activeDocument.title && doc.file === activeDocument.file; }) ? activeDocument : initialDoc;
+        updateViewer(activeDocument, folderName);
+
+        const url = new URL(window.location.href);
+        url.searchParams.set('folder', folderName);
+        window.history.replaceState({}, '', url);
+      }
+
+      folderList.addEventListener('click', function(event){
+        const button = event.target.closest('.folder-button');
+        if (!button) return;
+        const folderName = button.dataset.folder;
+        renderLibrary(folderName);
+      });
+
+      documentList.addEventListener('click', function(event){
+        const card = event.target.closest('.document-card');
+        if (!card) return;
+        activeDocument = {
+          title: card.dataset.title,
+          subtitle: card.dataset.subtitle,
+          file: card.dataset.file
+        };
+        updateViewer(activeDocument, activeFolder);
+
+        const url = new URL(window.location.href);
+        url.searchParams.set('folder', activeFolder);
+        url.searchParams.set('file', activeDocument.file);
+        url.searchParams.set('title', activeDocument.title);
+        url.searchParams.set('message', activeFolder + ' • ' + activeDocument.subtitle);
+        window.history.replaceState({}, '', url);
+      });
+
+      const initialDocParam = params.get('file');
+      const initialTitleParam = params.get('title');
+      if (initialDocParam && initialTitleParam) {
+        const folderName = activeFolder;
+        const folder = libraryData[folderName];
+        const matchingDoc = folder.docs.find(function(doc){ return doc.file === initialDocParam && doc.title === initialTitleParam; }) || folder.docs[0];
+        activeDocument = matchingDoc;
+      }
+
+      renderLibrary(activeFolder);
+    });
+  </script>
+</body>
+</html>

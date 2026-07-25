@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Certificate of the Veracity</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="Style/cov.css">
+</head>
+<body>
+  <div class="cov-shell">
+    <nav>
+      <div class="brand">
+        <img src="elements/logo.jpg" class="img" alt="logo">
+        <span class="brand-text">Occidental Mindoro State University</span>
+      </div>
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <i class="fa fa-bars"></i>
+      </button>
+      <ul id="nav-menu" class="nav-menu">
+        <li><a href="WelcomePage.html">HOME</a></li>
+        <li class="active"><a href="cov.html">Certificate of the Veracity</a></li>
+        <li><a href="#">SUC Profile</a></li>
+        <li class="has-submenu">
+          <a href="#" class="submenu-toggle" aria-expanded="false">Areas</a>
+          <ul class="submenu">
+            <li><a href="area-i.html">Area I</a></li>
+            <li><a href="area-ii.html">Area II</a></li>
+            <li><a href="area-iii.html">Area III</a></li>
+            <li><a href="area-iv.html">Area IV</a></li>
+            <li><a href="area-v.html">Area V</a></li>
+            <li><a href="area-vi.html">Area VI</a></li>
+            <li><a href="area-vii.html">Area VII</a></li>
+            <li><a href="area-viii.html">Area VIII</a></li>
+            <li><a href="area-ix.html">Area IX</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+
+    <main class="cov-main">
+      <section class="hero-panel">
+        <div class="hero-meta">
+          <a href="WelcomePage.html"><i class="fa-solid fa-house"></i> Home</a>
+          <span>/</span>
+          <span>Certificate of the Veracity</span>
+        </div>
+
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <h1>Certificate of the Veracity</h1>
+            <p>Browse the certificate folder contents below. Click any thumbnail to open the corresponding document.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="preview-panel">
+        <div class="preview-header">
+          <div>
+            <h2>Folder slideshow</h2>
+            <div id="folder-status" class="folder-status">Showing documents from resources/cov/</div>
+          </div>
+          <div class="slide-controls">
+            <button id="prev-button" class="slide-btn" disabled><i class="fa-solid fa-chevron-left"></i></button>
+            <span id="slide-label">Loading slides...</span>
+            <button id="next-button" class="slide-btn" disabled><i class="fa-solid fa-chevron-right"></i></button>
+          </div>
+        </div>
+
+        <div id="preview-area" class="preview-area"></div>
+        <div id="thumbnail-strip" class="thumbnail-strip"></div>
+      </section>
+    </main>
+
+    <section class="footer">
+      <h4> About Us</h4>
+      <p>Web developers typically create a layout for the site that has a pleasing home page with a user-friendly interface.<br> They can also develop content for websites upon demand.</p>
+      <div class="icons">
+        <i class="fa fa-facebook"></i>
+        <i class="fa fa-instagram"></i>
+        <i class="fa fa-twitter"></i>
+      </div>
+      <p>Made with<i class="fa fa-heart-o"></i> by JB_Code</p>
+      <p>Copyright&copy; 2026</p>
+    </section>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const previewArea = document.getElementById('preview-area');
+      const thumbnailStrip = document.getElementById('thumbnail-strip');
+      const slideLabel = document.getElementById('slide-label');
+      const prevButton = document.getElementById('prev-button');
+      const nextButton = document.getElementById('next-button');
+      const folderStatus = document.getElementById('folder-status');
+
+      const slides = [
+        { title: 'Certificate Overview', type: 'application/pdf', url: 'resources/cov/certificate-1.pdf' },
+        { title: 'Verification Badge', type: 'image/svg+xml', url: 'resources/cov/certificate-1.svg' },
+        { title: 'Verified Statement', type: 'image/svg+xml', url: 'resources/cov/certificate-2.svg' }
+      ];
+      let currentIndex = 0;
+
+      function updateSlideButtons() {
+        prevButton.disabled = currentIndex <= 0;
+        nextButton.disabled = currentIndex >= slides.length - 1;
+        slideLabel.textContent = slides.length
+          ? `${currentIndex + 1} of ${slides.length} — ${slides[currentIndex].title}`
+          : 'No documents available';
+      }
+
+      function openCurrentSlide() {
+        const slide = slides[currentIndex];
+        window.open(slide.url, '_blank');
+      }
+
+      function renderSlide(index) {
+        previewArea.innerHTML = '';
+        if (!slides.length) {
+          previewArea.innerHTML = `
+            <div class="preview-empty">
+              <i class="fa-solid fa-folder-open"></i>
+              <p>No documents found in resources/cov/.</p>
+            </div>
+          `;
+          updateSlideButtons();
+          return;
+        }
+
+        const slide = slides[index];
+        const slideCard = document.createElement('div');
+        slideCard.className = 'slide-card';
+        slideCard.tabIndex = 0;
+        slideCard.setAttribute('role', 'button');
+        slideCard.setAttribute('aria-label', `Open ${slide.title}`);
+        slideCard.addEventListener('click', openCurrentSlide);
+        slideCard.addEventListener('keydown', event => {
+          if (event.key === 'Enter' || event.key === ' ') {
+            openCurrentSlide();
+          }
+        });
+
+        if (slide.type.startsWith('image/')) {
+          const img = document.createElement('img');
+          img.src = slide.url;
+          img.alt = slide.title;
+          slideCard.appendChild(img);
+        } else {
+          const pdfWrapper = document.createElement('div');
+          pdfWrapper.className = 'pdf-preview';
+
+          const embed = document.createElement('object');
+          embed.data = slide.url;
+          embed.type = 'application/pdf';
+          embed.className = 'pdf-object';
+          embed.innerHTML = `PDF preview not available. <a href="${slide.url}" target="_blank" rel="noopener noreferrer">Open PDF</a>`;
+          pdfWrapper.appendChild(embed);
+          slideCard.appendChild(pdfWrapper);
+        }
+
+        const caption = document.createElement('div');
+        caption.className = 'slide-caption';
+        caption.textContent = `${slide.title} (click to open)`;
+        slideCard.appendChild(caption);
+
+        previewArea.appendChild(slideCard);
+        updateSlideButtons();
+      }
+
+      function updateThumbnails() {
+        thumbnailStrip.innerHTML = '';
+        slides.forEach((slide, index) => {
+          const thumb = document.createElement('button');
+          thumb.type = 'button';
+          thumb.className = 'thumbnail-card';
+          thumb.title = slide.title;
+          thumb.addEventListener('click', () => {
+            currentIndex = index;
+            renderSlide(currentIndex);
+          });
+
+          if (slide.type.startsWith('image/')) {
+            const img = document.createElement('img');
+            img.src = slide.url;
+            img.alt = slide.title;
+            thumb.appendChild(img);
+          } else {
+            const icon = document.createElement('div');
+            icon.className = 'thumbnail-icon';
+            icon.innerHTML = '<i class="fa-solid fa-file-pdf"></i>';
+            thumb.appendChild(icon);
+          }
+
+          const caption = document.createElement('span');
+          caption.textContent = slide.title;
+          thumb.appendChild(caption);
+
+          thumbnailStrip.appendChild(thumb);
+        });
+      }
+
+      prevButton.addEventListener('click', () => {
+        if (currentIndex > 0) {
+          currentIndex -= 1;
+          renderSlide(currentIndex);
+        }
+      });
+
+      nextButton.addEventListener('click', () => {
+        if (currentIndex < slides.length - 1) {
+          currentIndex += 1;
+          renderSlide(currentIndex);
+        }
+      });
+
+      document.querySelector('.nav-toggle')?.addEventListener('click', function () {
+        const menu = document.getElementById('nav-menu');
+        const expanded = this.getAttribute('aria-expanded') === 'true';
+        this.setAttribute('aria-expanded', String(!expanded));
+        menu.classList.toggle('open');
+      });
+
+      document.querySelector('.submenu-toggle')?.addEventListener('click', function (event) {
+        event.preventDefault();
+        const parent = this.closest('.has-submenu');
+        const expanded = this.getAttribute('aria-expanded') === 'true';
+        this.setAttribute('aria-expanded', String(!expanded));
+        parent.classList.toggle('open');
+      });
+
+      folderStatus.textContent = 'Showing documents from resources/cov/';
+      updateThumbnails();
+      renderSlide(currentIndex);
+    });
+  </script>
+</body>
+</html>
